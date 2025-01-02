@@ -29,7 +29,7 @@ pub fn get_stage() -> Stage {
 
 }
 
-pub fn get_adventures_secret() -> Result<AdventuresSecret> {
+pub fn get_adventurers_secret_env() -> Result<AdventuresSecret> {
     dotenvy::dotenv().ok();
 
     Ok(AdventuresSecret {
