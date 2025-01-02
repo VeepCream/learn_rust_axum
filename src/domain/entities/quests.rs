@@ -1,11 +1,11 @@
 use chrono::NaiveDateTime;
 use diesel::prelude::*;
 
-use crate::infrastructure::postgres::schema::quests;
+use crate::{domain::value_objects::{quest_model::QuestModel, quest_statuses::QuestStatuses}, infrastructure::postgres::schema::quests};
 
 #[derive(Debug, Clone, Insertable, Selectable, Queryable)]
 #[diesel(table_name = quests)]
-pub struct GuildCommanderEntity {
+pub struct QuestEntity {
     pub id: i32,
     pub name: String,
     pub description: Option<String>,
@@ -15,9 +15,24 @@ pub struct GuildCommanderEntity {
     pub updated_at: NaiveDateTime
 }
 
+impl QuestEntity {
+    pub fn to_model(&self, adventurer_count: i64) -> QuestModel {
+        QuestModel {
+            id: self.id,
+            name: self.name.clone(),
+            description: self.description.clone(),
+            status: self.status.clone(),
+            guild_commander_id: self.guild_commander_id,
+            adventurers_count: adventurer_count,
+            created_at: self.created_at,
+            updated_at: self.updated_at
+        }
+    }
+    
+}
 #[derive(Debug, Clone, Insertable, Queryable)]
 #[diesel(table_name = quests)]
-pub struct AddCommanderEntity {
+pub struct AddQuestEntity {
     pub name: String,
     pub description: Option<String>,
     pub status: String,
@@ -28,7 +43,7 @@ pub struct AddCommanderEntity {
 
 #[derive(Debug, Clone, Queryable, AsChangeset)]
 #[diesel(table_name = quests)]
-pub struct EditCommanderEntity {
+pub struct EditQuestEntity {
     pub name: Option<String>,
     pub description: Option<String>,
     pub guild_commander_id: i32,

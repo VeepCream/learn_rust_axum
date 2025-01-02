@@ -1,7 +1,7 @@
 use chrono::NaiveDateTime;
 use diesel::prelude::*;
 
-use crate::infrastructure::postgres::schema::{adventurers, guild_commanders};
+use crate::infrastructure::postgres::schema::guild_commanders;
 
 #[derive(Debug, Clone, Insertable, Selectable, Queryable)]
 #[diesel(table_name = guild_commanders)]
