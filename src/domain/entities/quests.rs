@@ -1,7 +1,9 @@
 use chrono::NaiveDateTime;
 use diesel::prelude::*;
 
-use crate::{domain::value_objects::{quest_model::QuestModel, quest_statuses::QuestStatuses}, infrastructure::postgres::schema::quests};
+use crate::{
+    domain::value_objects::quest_model::QuestModel, infrastructure::postgres::schema::quests,
+};
 
 #[derive(Debug, Clone, Insertable, Selectable, Queryable)]
 #[diesel(table_name = quests)]
@@ -12,7 +14,7 @@ pub struct QuestEntity {
     pub status: String,
     pub guild_commander_id: i32,
     pub created_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime
+    pub updated_at: NaiveDateTime,
 }
 
 impl QuestEntity {
@@ -25,10 +27,9 @@ impl QuestEntity {
             guild_commander_id: self.guild_commander_id,
             adventurers_count: adventurer_count,
             created_at: self.created_at,
-            updated_at: self.updated_at
+            updated_at: self.updated_at,
         }
     }
-    
 }
 #[derive(Debug, Clone, Insertable, Queryable)]
 #[diesel(table_name = quests)]
@@ -38,7 +39,7 @@ pub struct AddQuestEntity {
     pub status: String,
     pub guild_commander_id: i32,
     pub created_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime
+    pub updated_at: NaiveDateTime,
 }
 
 #[derive(Debug, Clone, Queryable, AsChangeset)]
@@ -47,5 +48,5 @@ pub struct EditQuestEntity {
     pub name: Option<String>,
     pub description: Option<String>,
     pub guild_commander_id: i32,
-    pub updated_at: NaiveDateTime
+    pub updated_at: NaiveDateTime,
 }

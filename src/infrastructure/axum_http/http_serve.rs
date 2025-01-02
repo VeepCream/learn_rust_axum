@@ -11,7 +11,7 @@ use tower_http::{
 };
 
 use crate::{
-    config::config_model::DotEnvyConfig, infrastructure::postgres::postgres_connection::PgPoolSquad,
+    config::config_model::DotEnvyConfig, infrastructure::postgres::postgres_connector::PgPoolSquad,
 };
 
 use super::default_routers;
