@@ -42,7 +42,7 @@ pub async fn start(config: Arc<DotEnvyConfig>, db_pool: Arc<PgPoolSquad>) -> Res
 
     let listener = TcpListener::bind(addr).await?;
 
-    info!("Server is running on port: {}", addr);
+    info!("Server is running on port: {}", config.server.port);
 
     axum::serve(listener, app)
         .with_graceful_shutdown(shutdown_signal())

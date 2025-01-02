@@ -1,4 +1,6 @@
-use quests_tracker::{config::config_loader, infrastructure::postgres::{self, postgres_connection}};
+use std::sync::Arc;
+
+use quests_tracker::{config::{self, config_loader}, infrastructure::{axum_http::http_serve::start, postgres::{self, postgres_connection}}};
 use tracing::{error, info};
 
 #[tokio::main]
@@ -27,5 +29,7 @@ async fn main() {
     };
 
     info! ("Postgres connection has been established");
+
+    start(Arc::new(dotenvy_env), Arc::new(postgres_pool)).await.expect("Failed to start server");
 
 }
